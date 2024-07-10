@@ -21,8 +21,8 @@ double supplyCurrent;
 double constCurrent = 350;
 double allowedCurrentErr = 5;
 double ignoredCurrent = 50;
-double voltageLimit = 4;
-double drainVoltage = 3.3;
+double voltageLimit = 4.1;
+double drainVoltage = 3.05;
 double powerVoltage;
 double difference = 0;
 
@@ -124,6 +124,7 @@ void loop() {
                 if(current >= constCurrent + allowedCurrentErr) resistanceStep--;
             }
             if(ina.getBusVoltage() >= voltageLimit) {
+                logFile.printf("%d,%.4f,%.4f\n",millis() - startMillis, voltage, current);
                 if(current <= ignoredCurrent) {
                     logFile.close();
                     free(fileName);
